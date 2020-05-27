@@ -5,7 +5,8 @@ class Number ():
     def __init__ (self, size=0, number=0):
         self.number = number
         self.size = size
-    
+        
+    #making a custom squareRoot function rather than use the one from the sqrt libary
     def square_root(self):
         emptyList = []
         i = 0.01
