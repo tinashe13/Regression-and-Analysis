@@ -1,33 +1,60 @@
-from math import sqrt
+x, y, xy, xy2, x2, y2 = [], [], [], [], [], []
 
-x = []
-y = []
-xy = []
-xy2 = []
-x2 = []
-y2 = []
-setSize = int(input('how many x and y values do you have? :'))
+class Number ():
+
+    def __init__ (self, size=0, number=0):
+        self.number = number
+        self.size = size
+    
+    def square_root(self):
+        emptyList = []
+        i = 0.01
+        max_number = 0
+
+        while (i*i) <= self.number:
+            emptyList.append(i)
+            i += 0.01
+            emptyList.sort()
+
+            max_number = emptyList[0]
+
+            for i in range(1, len(emptyList)):
+                if emptyList[i] > max_number:
+                    max_number = emptyList[i]
+
+        return max_number
+
+    def regression_values(self):
+        initialValue = 1
+        while initialValue <= self.size:
+            x1 = int(input('Enter a x value: '))
+            y1 = int(input('Enter a y value: '))
+
+            xyValue = (x1*y1)
+
+            x.append(x1)
+            y.append(y1)
+            xy.append(xyValue)
+            xy2.append(xyValue**2)
+            x2.append(x1**2)
+            y2.append(y1**2)
+
+            initialValue += 1
 
 
-def RegressionValues():
-    initialValue = 1
-    while initialValue <= setSize:
-        x1 = float(input('Enter a x value: '))
-        y1 = float(input('Enter a y value: '))
+setSize = input('How many x and y values do you have?\n')
+sizeValid = False
 
-        xyValue = (x1*y1)
-
-        x.append(x1)
-        y.append(y1)
-        xy.append(xyValue)
-        xy2.append(xyValue**2)
-        x2.append(x1**2)
-        y2.append(y1**2)
-
-        initialValue += 1
+while sizeValid == False:
+    try:
+        setSize = int(setSize)
+        sizeValid = True
+    except:
+        print('Please enter a valid string!\n')
+        setSize = input('How many x and y values do you have?\n')
 
 
-RegressionValues()
+Number(setSize).regression_values()
 
 Ey = sum(y)
 Ex = sum(x)
@@ -36,49 +63,23 @@ Exy2 = sum(xy2)
 Ex2 = sum(x2)
 Ey2 = sum(y2)
 
-print("Ex is", Ex)
-print("Ey is", Ey)
-print("Exy is", Exy)
-print("Exy^2 is", Exy2)
+print("\nEx is",Ex, "\n")
+print("\nEy is",Ey, "\n")
+print("\nExy is",Exy, "\n")
+print("\nExy^2 is",Exy2, "\n")
 
 xMean = Ex/setSize
 yMean = Ey/setSize
 
 aBar = ((Ex*Ey)-(setSize*Exy))/((Ex**2)-(setSize*Ex2))
-
-
 bBar = ((Ex*Exy)-Ey*Ex2)/((Ex**2)-(setSize*Ex2))
 
-Sx = sqrt((Ex2-((1/setSize)*(Ex**2)))/(setSize-1))
-Sy = sqrt((Ey2-((1/setSize)*(Ey**2)))/(setSize-1))
+Sx = Number(setSize, ((Ex2)-((1/setSize)*(Ex**2)))/(setSize-1)).square_root()
+Sy = Number(setSize, ((Ey2)-((1/setSize)*(Ey**2)))/(setSize-1)).square_root()
 
 r = (Sx/Sy)*aBar
 
-print("a is : ", aBar)
-print("b is : ", bBar)
-print(" Co-efficient of Correlation r is : ", r)
 
-print('y = ', aBar, 'x + ', bBar)
-
-Equate = input('Do you want to find an value using the line? (y/n) : ')
-
-if Equate == 'y':
-    xOry = input('do you want to find the value of x or y? : ')
-    if xOry == 'x':
-        yValue = float(input('please enter the value of y : '))
-        xValue = (yValue-bBar)/aBar
-        print('Your x is : ', xValue)
-
-    elif xOry == 'y':
-        xValue = float(input('please enter your x value : '))
-        yValue = (aBar*xValue) + bBar
-        print('Your y value is : ', yValue)
-
-    else:
-        print('Please make sure you enter y or n specifically!')
-
-print('Thank you!!')
-
-#Copyright Tinashe Dzemwa
-#Copyright Tinashe Dzemwa
-#Copyright Tinashe Dzemwa
+print("a is : ",aBar)
+print("b is : ",bBar)
+print(" Co-efficient of Correlation r is : ",r)
